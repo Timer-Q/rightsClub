@@ -9,7 +9,7 @@
     <link href="css/unslider.css" rel="stylesheet">
     <link href="css/unslider-dots.css" rel="stylesheet">
     <script src="js/jquery-2.2.3.min.js"></script>
-    <script src="js/unslider-min.js"></script>
+    <script src="js/unslider.js"></script>
 </head>
 <style>
     .banner {
@@ -148,9 +148,10 @@
 </body>
 <script>
     $(function() {
+        var delayTime = 3000;
         var slider = $('.banner').unslider({
             speed: 500, //  The speed to animate each slide (in milliseconds)
-            delay: 3000, //  The delay between slide animations (in milliseconds)
+            delay: delayTime, //  The delay between slide animations (in milliseconds)
             keys: true, //  Enable keyboard (left, right) arrow shortcuts
             dots: true, //  Display dot navigation
             fluid: false, //  Support responsive design. May break non-responsive designs
@@ -164,14 +165,11 @@
         });
         $('.dots li').eq(0).children('span').animate({
             width: '100%'
-        }, 3000);
+        }, delayTime);
         slider.on('unslider.change', function(event, index, slide) {
             $('.dots li').eq(index).children('span').animate({
                 width: '100%'
-            }, 3000);
-            console.log('length ' + ($('.banner ul li').length - 1));
-            console.log('Slide has been changed to ' + index);
-
+            }, delayTime);
             if (index === ($('.banner ul li').length - 1)) {
                 console.log('Slide has been changed to ' + index);
                 data.stop();
