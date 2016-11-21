@@ -16,6 +16,7 @@
         <ul>
             <li>This is a slide.</li>
             <li>This is another slide.</li>
+            <li>This is third slide.</li>
             <li>登录页</li>
         </ul>
     </div>
@@ -51,6 +52,7 @@
             $(this).prevAll().children('span').css('width', '100%');
             $(this).nextAll().children('span').css('width', '0');
 
+            // 如果点击是最后一个 停止轮播
             if ($(this).index() === ($('.banner ul li').length - 1)) {
                 data.stop();
             }
@@ -70,9 +72,9 @@
             $('.unslider-nav .unslider-active').children('span').animate({
                 width: '100%'
             }, delayTime);
-            // 切换到最后一个焦点图后 停止自动切换
+            // 切换到最后一个焦点图后 停止自动轮播
             if (index === ($('.banner ul li').length - 1)) {
-                // 焦点图停止切换事件
+                // 焦点图停止轮播事件
                 data.stop();
             }
         });
