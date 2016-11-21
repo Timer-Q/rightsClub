@@ -154,3 +154,31 @@
     padding-left: 10px;
     cursor: pointer;
 }
+
+.unslider-nav ol {
+    list-style: none;
+    text-align: center;
+}
+
+.unslider-nav ol li {
+    display: inline-block;
+    width: 50px;
+    height: 2px;
+    background-color: rgba(128, 128, 128, 0.2);
+    cursor: pointer;
+    text-align: left;
+    margin-right: 20px;
+}
+
+.unslider-nav ol li:last-child {
+    margin-right: 0;
+}
+
+.unslider-nav li span {
+    display: block;
+    width: 0;
+    height: 2px;
+    background-color: #fff;
+    cursor: pointer;
+    overflow: hidden;
+}
