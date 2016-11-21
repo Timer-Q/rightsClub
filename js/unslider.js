@@ -245,7 +245,8 @@
                 }
 
                 //  And add it to our navigation item
-                $nav.children('ol').append('<li data-slide="' + key + '">' + label + '</li>');
+                // $nav.children('ol').append('<li data-slide="' + key + '"><span>' + label + '</span></li>');
+                $nav.children('ol').append('<li data-slide="' + key + '"><span></span></li>');
             });
 
             //  Keep a copy of the nav everywhere so we can use it

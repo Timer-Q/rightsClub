@@ -11,139 +11,14 @@
     <script src="js/jquery-2.2.3.min.js"></script>
     <script src="js/unslider.js"></script>
 </head>
-<style>
-    .banner {
-        position: relative;
-        width: 100%;
-        overflow: auto;
-        font-size: 18px;
-        line-height: 24px;
-        text-align: center;
-        color: rgba(255, 255, 255, .6);
-        text-shadow: 0 0 1px rgba(0, 0, 0, .05), 0 1px 2px rgba(0, 0, 0, .3);
-        background: #5b4d3d;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, .25);
-    }
-    
-    .banner ul {
-        list-style: none;
-        width: 300%;
-    }
-    
-    .banner ul li {
-        display: block;
-        float: left;
-        width: 33%;
-        min-height: 350px;
-        -o-background-size: 100% 100%;
-        -ms-background-size: 100% 100%;
-        -moz-background-size: 100% 100%;
-        -webkit-background-size: 100% 100%;
-        background-size: 100% 100%;
-        box-shadow: inset 0 -3px 6px rgba(0, 0, 0, .1);
-    }
-    
-    .banner .inner {
-        padding: 160px 0 110px;
-    }
-    
-    .banner h1,
-    .banner h2 {
-        font-size: 40px;
-        line-height: 52px;
-        color: #fff;
-    }
-    
-    .banner .btn {
-        display: inline-block;
-        margin: 25px 0 0;
-        padding: 9px 22px 7px;
-        clear: both;
-        color: #fff;
-        font-size: 12px;
-        font-weight: bold;
-        text-transform: uppercase;
-        text-decoration: none;
-        border: 2px solid rgba(255, 255, 255, .4);
-        border-radius: 5px;
-    }
-    
-    .banner .btn:hover {
-        background: rgba(255, 255, 255, .05);
-    }
-    
-    .banner .btn:active {
-        -webkit-filter: drop-shadow(0 -1px 2px rgba(0, 0, 0, .5));
-        -moz-filter: drop-shadow(0 -1px 2px rgba(0, 0, 0, .5));
-        -ms-filter: drop-shadow(0 -1px 2px rgba(0, 0, 0, .5));
-        -o-filter: drop-shadow(0 -1px 2px rgba(0, 0, 0, .5));
-        filter: drop-shadow(0 -1px 2px rgba(0, 0, 0, .5));
-    }
-    
-    .banner .btn,
-    .banner .dot {
-        -webkit-filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3));
-        -moz-filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3));
-        -ms-filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3));
-        -o-filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3));
-        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3));
-    }
-    
-    .banner .dots {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 20px;
-    }
-    
-    .banner .dots li {
-        display: inline-block;
-        width: 50px;
-        height: 2px;
-        background-color: rgba(128, 128, 128, 0.2);
-        cursor: pointer;
-        text-align: left;
-        position: relative;
-    }
-    
-    .banner .dots li span {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 0;
-        height: 2px;
-        background-color: #fff;
-        cursor: pointer;
-    }
-    
-    .banner .arrows {
-        position: absolute;
-        bottom: 20px;
-        right: 20px;
-        color: #fff;
-    }
-    
-    .banner .arrow {
-        display: inline;
-        padding-left: 10px;
-        cursor: pointer;
-    }
-</style>
 
 <body>
     <div class="banner has-dots">
         <ul>
             <li>This is a slide.</li>
             <li>This is another slide.</li>
-            <li>This is a final slide.</li>
+            <li>登录页</li>
         </ul>
-        <ol class="dots">
-            <li class="dot">
-                <span></span>
-            </li>
-            <li class="dot"><span></span></li>
-            <li class="dot"><span></span></li>
-        </ol>
     </div>
 </body>
 <script>
@@ -155,28 +30,54 @@
             keys: true, //  Enable keyboard (left, right) arrow shortcuts
             dots: true, //  Display dot navigation
             fluid: false, //  Support responsive design. May break non-responsive designs
+            nav: true,
+            arrows: false, // 前进、后退按钮
             starting: function() { //每次开始切换时回叫方法
                 console.log("starting");
             },
             complete: function() { //每次完成切换时回叫方法
                 console.log("complete");
             },
-            autoplay: true
+            autoplay: true // 自动播放
         });
-        $('.dots li').eq(0).children('span').animate({
-            width: '100%'
-        }, delayTime);
-        slider.on('unslider.change', function(event, index, slide) {
-            $('.dots li').eq(index).children('span').animate({
-                width: '100%'
-            }, delayTime);
-            if (index === ($('.banner ul li').length - 1)) {
-                console.log('Slide has been changed to ' + index);
+
+        // 获取焦点图事件 在此主要用于停止自动切换
+        var data = slider.data('unslider');
+
+        // 点击下方导航事件 点击当前导航点 当前和其前宽度为100% 其后宽度为0 ;并停止动画;
+        $('.unslider-nav li').click(function() {
+            $('.unslider-nav li').children('span').stop(true); // 停止动画
+
+            $(this).children('span').css('width', '100%');
+            $(this).prevAll().children('span').css('width', '100%');
+            $(this).nextAll().children('span').css('width', '0');
+
+            if ($(this).index() === ($('.banner ul li').length - 1)) {
                 data.stop();
             }
-
         });
-        var data = slider.data('unslider');
+
+        // 页面加载时 下方第一个导航点动画
+        $('.unslider-nav li').eq(0).children('span').animate({
+            width: '100%'
+        }, delayTime);
+
+        // 绑定每次切换焦点图事件
+        /**
+         * index: 焦点图的下标 从零开始
+         * */
+        slider.on('unslider.change', function(event, index, slide) {
+            // 焦点图切换时 下方导航点随着切换
+            $('.unslider-nav .unslider-active').children('span').animate({
+                width: '100%'
+            }, delayTime);
+            // 切换到最后一个焦点图后 停止自动切换
+            if (index === ($('.banner ul li').length - 1)) {
+                // 焦点图停止切换事件
+                data.stop();
+            }
+        });
+
     });
 </script>
 
